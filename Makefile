@@ -1,24 +1,35 @@
 CC := gcc
-CFLAGS := -Wall -Wextra -g
+CFLAGS := -Wall -Wextra
 
 BIN_PATH := bin
 OBJ_PATH := obj
+REL_PATH := ${OBJ_PATH}/rel
+DBG_PATH := ${OBJ_PATH}/dbg
 SRC_PATH := src
 
 TARGET := ${BIN_PATH}/structs
 
 SRC_FILES := $(wildcard ${SRC_PATH}/*.c)
-OBJ_FILES := $(addprefix ${OBJ_PATH}/, $(notdir ${SRC_FILES:.c=.o}))
+REL_FILES := $(addprefix ${REL_PATH}/, $(notdir ${SRC_FILES:.c=.o}))
+DBG_FILES := $(addprefix ${DBG_PATH}/, $(notdir ${SRC_FILES:.c=.o}))
 
-.PHONY: all clean
+.PHONY: all clean release
 
-all: ${OBJ_FILES}
+all: ${DBG_FILES}
 	@mkdir -p ${BIN_PATH}
-	@${CC} ${CFLAGS} -o ${TARGET} ${OBJ_FILES}
+	@${CC} ${CFLAGS} -o ${TARGET} ${DBG_FILES}
 
 clean:
 	@rm -rf ${BIN_PATH} ${OBJ_PATH}
 
-${OBJ_PATH}/%.o: ${SRC_PATH}/%.c
-	@mkdir -p ${OBJ_PATH}
-	@${CC} ${CFLAGS} -c -o $@ $<
+release: ${REL_FILES}
+	@mkdir -p ${BIN_PATH}
+	@${CC} ${CFLAGS} -O3 -s -o ${TARGET}-release ${REL_FILES}
+
+${REL_PATH}/%.o: ${SRC_PATH}/%.c
+	@mkdir -p ${REL_PATH}
+	@${CC} ${CFLAGS} -O3 -s -c -o $@ $<
+
+${DBG_PATH}/%.o: ${SRC_PATH}/%.c
+	@mkdir -p ${DBG_PATH}
+	@${CC} ${CFLAGS} -g -c -o $@ $<
