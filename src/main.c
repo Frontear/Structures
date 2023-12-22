@@ -2,17 +2,32 @@
 #include "sll.h"
 
 int main(void) {
-    SingleLinkedList list;
+    SLL* list = make_sll();
 
-    push(&list, 4);
-    push(&list, 8);
-    push(&list, 9);
+    if (list == NULL) {
+        printf("Failed to allocate list\n");
+        return 1;
+    }
 
-    print(&list);
+    print_sll(list);
 
-    printf("Removed: %d\n", pop(&list));
+    push_sll(list, 3);
+    push_sll(list, 6);
+    push_sll(list, 9);
+    print_sll(list);
 
-    print(&list);
+    pop_sll(list);
+    print_sll(list);
+
+    push_sll(list, 19);
+    print_sll(list);
+
+    pop_sll(list);
+    pop_sll(list);
+    pop_sll(list);
+    print_sll(list);
+
+    free_sll(list);
 
     return 0;
 }

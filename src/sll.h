@@ -3,11 +3,14 @@
 
 typedef struct {
     void* head;
-} SingleLinkedList;
+} SLL;
 
-void push(SingleLinkedList*, int);
-int pop(SingleLinkedList*);
+SLL*    make_sll();
+void    free_sll();
 
-void print(SingleLinkedList*);
+void    push_sll(SLL*, int);
+int     pop_sll(SLL*);
+
+void    print_sll(SLL*);
 
 #endif
