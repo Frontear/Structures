@@ -17,7 +17,7 @@ DBG_FILES := $(addprefix ${DBG_PATH}/, $(notdir ${SRC_FILES:.c=.o}))
 
 all: ${DBG_FILES}
 	@mkdir -p ${BIN_PATH}
-	@${CC} ${CFLAGS} -o ${TARGET} ${DBG_FILES}
+	@${CC} ${CFLAGS} -g -o ${TARGET} ${DBG_FILES}
 
 clean:
 	@rm -rf ${BIN_PATH} ${OBJ_PATH}
