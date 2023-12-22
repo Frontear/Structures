@@ -7,14 +7,14 @@ SRC_PATH := src
 
 TARGET := ${BIN_PATH}/structs
 
-SRC_FILES := $(wildcard ${SRC_PATH}/*)
+SRC_FILES := $(wildcard ${SRC_PATH}/*.c)
 OBJ_FILES := $(addprefix ${OBJ_PATH}/, $(notdir ${SRC_FILES:.c=.o}))
 
-.PHONY: all clean debug
+.PHONY: all clean
 
 all: ${OBJ_FILES}
 	@mkdir -p ${BIN_PATH}
-	@${CC} ${CFLAGS} -o ${TARGET} ${SRC_FILES}
+	@${CC} ${CFLAGS} -o ${TARGET} ${OBJ_FILES}
 
 clean:
 	@rm -rf ${BIN_PATH} ${OBJ_PATH}
