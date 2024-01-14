@@ -6,36 +6,52 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
-void print_list();
+void push(int);
+int pop();
+void dump();
 
 Node* head = NULL;
 
 int main(void) {
-    Node* a = malloc(sizeof(Node));
-    Node* b = malloc(sizeof(Node));
-    Node* c = malloc(sizeof(Node));
+    push(5);
+    push(13);
+    push(10);
 
-    if (!a || !b || !c) {
-        fprintf(stderr, "Failed to allocate for one or more nodes\n");
-        return -1;
-    }
+    dump();
 
-    a->data = 10;
-    b->data = 13;
-    c->data = 5;
+    pop();
 
-    a->next = b;
-    b->next = c;
-    c->next = NULL;
-
-    head = a;
-
-    print_list();
+    dump();
 
     return 0;
 }
 
-void print_list() {
+void push(int value) {
+    Node* n = malloc(sizeof(Node));
+
+    if (!n) {
+        fprintf(stderr, "Failed to allocate for node with value %d", value);
+        return;
+    }
+
+    n->data = value;
+    n->next = head;
+
+    head = n;
+}
+
+int pop() {
+    int data = head->data;
+    Node* next = head->next;
+
+    free(head);
+
+    head = next;
+
+    return data;
+}
+
+void dump() {
     Node* current = head;
 
     printf("Linked List: ");
