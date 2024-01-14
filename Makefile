@@ -25,7 +25,7 @@ all: ${OBJ_FILES}
 clean:
 	@rm -rf ${BIN_PATH} ${OBJ_PATH}
 
-run:
+run: all
 	@${TARGET}
 
 ${OBJ_FILES}: ${OBJ_PATH}/%.o : ${SRC_PATH}/%.c
