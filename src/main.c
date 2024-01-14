@@ -10,6 +10,8 @@ void push(int);
 int pop();
 void dump();
 
+void destroy();
+
 Node* head = NULL;
 
 int main(void) {
@@ -22,6 +24,8 @@ int main(void) {
     pop();
 
     dump();
+
+    destroy();
 
     return 0;
 }
@@ -67,4 +71,10 @@ void dump() {
     }
 
     printf("\n");
+}
+
+void destroy() {
+    while (head != NULL) {
+        pop();
+    }
 }
